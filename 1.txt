@@ -1,2 +1,6 @@
 this is a test file 
-i have change this file
+i have change this file 
+input js file 
+i have change again;
+all value is change;
+ha ha ha    
