@@ -1,0 +1,23 @@
+git orders
+   git remote to priority
+
+   -- git remote : search remote priority name
+
+   -- git remote -v : search remote priority name and address
+
+   push code to priority:
+
+   -- git push origin master
+
+
+   many peoper conflict :
+
+   git fetch:
+
+	fetch priority code to local,but not togger,you have to resolve it by yourself;
+	follow is the methods:
+
+	first:  git diff master origin/master : to watch differ local and remote priority;
+	second: git merge origin/master : merge you are code with remote priority;
+
+   git pull: auto merge;
