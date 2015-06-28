@@ -1,0 +1,8 @@
+git 命令
+  -- 恢复
+
+  -- git checkout commit_id filename :  恢复一个指定的commit_id对应的file
+  -- git reset --hard commit_id : 恢复指定的commit_id对应的版本信息
+  -- git reset --hard head^
+  -- git reset --hard head~numb
+  -- git reflog
