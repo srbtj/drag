@@ -1,0 +1,4 @@
+git 命令
+  - git rm filename  工作区的件已删除时，删除缓存区中的件
+  - git rm -f filename  同时删除工作区和缓存区
+  - git rm --cached filename   只删除能在缓存区
