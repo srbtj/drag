@@ -1,65 +1,52 @@
-function drag(obj){
+function Drag(id){
+    this.obj = document.getElementById(id);
+    this.disX = 0;
+    this.disY = 0;
+};
 
-    obj.onmousedown = function(ev){
-
-        ev = ev || window.event;
-        /** 计算鼠标按下的离目标元素左边的距离  */
-        var disX = ev.clientX - obj.offsetLeft;
-        var disY = ev.clientY - obj.offsetTop;
-
-        /*** 设置全局捕获  目的是：阻止事件的默认行为;
-         *
-         *   标准下： return false;
-         *   ie非标准下：  设置全局捕获
-         **/
-
-        if(obj.setCapture){
-
-            obj.setCapture();
-        }
-
+Drag.prototype.init = function(){
+    var that = this;
+    /** 设置IE低版本的全局捕获 **/
+    if(this.obj.setCapture){
+        this.obj.setCapture();
+    }
+    /** 鼠标按下时 **/
+    this.obj.onmousedown = function(ev){
+        var ev = ev || window.event;
+        that.mouseDown(ev);
+        /** 鼠标移动时 **/
         document.onmousemove = function(ev){
-
-            ev = ev || window.event;
-            /**
-             *   计算鼠标移动的距离并赋值给目标元素;
-             **/
-
-            var L = ev.clientX - disX;
-            var T = ev.clientY - disY;
-
-            /** 指定目标元素在指定的范围内移动 */
-            if(L < 0){
-                L = 0;
-            }else if( L > document.documentElement.clientWidth - obj.offsetWidth){
-
-                L = document.documentElement.clientWidth - obj.offsetWidth;
-            }
-
-
-            if( T < 0 ){
-
-                T = 0;
-            }else if( T > document.documentElement.clientHeight - obj.offsetHeight){
-
-                T = document.documentElement.clientHeight - obj.offsetHeight;
-            }
-
-            obj.style.left = L + 'px';
-            obj.style.top = T + 'px';
-
-         }
-
+            var ev = ev || window.event;
+            that.mouseMove(ev);
+        };
+        /** 鼠标离开时 **/
         document.onmouseup = function(){
 
-            document.onmousemove = document.onmouseup = null;
+            that.mouseUp();
+        };
 
-            if(obj.releaseCapture) {
+        ev.preventDefault();
+    };
+};
 
-                obj.releaseCapture();
-            }
-        }
+Drag.prototype.mouseDown = function(ev){
 
-        return false;
+    this.disX = ev.clientX - this.obj.offsetLeft;
+    this.disY = ev.clientY - this.obj.offsetTop;
+
+};
+
+Drag.prototype.mouseMove = function(ev){
+
+    this.obj.style.left = ev.clientX - this.disX + 'px';
+    this.obj.style.top = ev.clientY - this.disY + 'px';
+};
+
+Drag.prototype.mouseUp = function(){
+
+    document.onmousemove = document.onmouseup = null;
+    /** 释放全局捕获 **/
+    if(this.obj.releaseCapture){
+        this.obj.releaseCapture();
     }
 }
