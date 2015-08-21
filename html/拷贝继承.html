@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /** 拷贝继承的原理：
+     *      属性通过 父.call(子);
+     *      方法通过 for in 实现
+     * */
+
+    // 创建父类
+     function Parent(name,age){
+
+        this.name = name;
+        this.age = age;
+    };
+
+    Parent.prototype.getName = function(){
+        return this.name;
+    };
+    Parent.prototype.getAge = function(){
+        return this.age;
+    };
+
+    // 创建子类
+    function Child(name,age,job){
+        // 继承属性： 通过call
+        Parent.call(this,name,age);
+        this.job = job;
+    };
+
+    Child.prototype.getJob = function(){
+        return this.job;
+    };
+
+    /** 方法通过 for in 实现继承 */
+    function extend(child,parent){
+        for(var attr in parent){
+            child[attr] = parent[attr];
+        }
+    };
+
+    extend(Child.prototype, Parent.prototype);
+
+    var c = new Child('小明','22','music');
+
+    console.info(c.getName() + ' ' + c.getAge() + '  ' + c.getJob());
+
+</script>
+</body>
+</html>

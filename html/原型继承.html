@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+   /*
+   *  原型继承 ： 适合于 json 类型的数据
+   **/
+
+   var a = {
+       name : '小明'
+   };
+
+   var b = cloneObj(a);
+
+   console.info(b.name);
+
+   function cloneObj(a){
+
+       var F = function(){};
+
+       F.prototype = a;
+
+       return new F();
+   };
+
+
+
+
+
+
+</script>
+</body>
+</html>

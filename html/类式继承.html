@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    /***
+     *  类式继承 ：
+     *      将父类的实例赋值给子类的原型
+     */
+
+    function Parent(name,age){
+        this.name = name;
+        this.age = age;
+    }
+
+    Parent.prototype.getName = function(){
+        return this.name;
+    }
+    Parent.prototype.getAge = function(){
+        return this.age;
+    }
+
+    function Child(name,age,job){
+
+        Parent.call(this,name,age);
+        this.job = job;
+    }
+
+    /** 类式继承
+     *    Child.prototype = new Parent();
+     *    如果只写这一句实现类型继承，会带来很多问题：
+     *      1. 子类的 constructor 会指向父类
+     *      2. 父类中的属性如果是对象或数组 ，那么通过类式继承的话，修改任何一个子类都会
+     *      影响到其它子类，
+     *          解决方法 :  属性于方法分开实现继承
+     *              属性通过 .call来实现继承
+     *              方法通过 原型来继承
+     *   代码如下：
+     * */
+
+    var F = function(){};
+    F.prototype = new Parent();
+    Child.prototype = new F();
+    Child.prototype.constructor = Child; // 修改指向;
+
+
+    Child.prototype.getJob = function(){
+        return this.job;
+    }
+    var c = new Child('小明','22','singer');
+
+    alert(c.getName() + ' ' + c.getAge() + ' ' + c.getJob());
+
+</script>
+</body>
+</html>
